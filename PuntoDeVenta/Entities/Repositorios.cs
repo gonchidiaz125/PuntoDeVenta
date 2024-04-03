@@ -18,6 +18,9 @@ namespace PuntoDeVenta.Entities
 		private List<ProductoAgrupador> productosAgrupadores = new List<ProductoAgrupador>();
 		private List<Producto> productos = new List<Producto>();
 
+		private int promocionSimpleId = 0;
+		private List<PromocionPrecioSimple> promocionesSimples = new List<PromocionPrecioSimple>();
+
 
 		public Repositorios() {
 			InicializarDatos();
@@ -79,12 +82,61 @@ namespace PuntoDeVenta.Entities
 			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_SEVEN_UP, FABRICANTE_PEPSICO, CATEGORIA_GASEOSA));
 
 
-			// PRODUCTOS									
+			// PRODUCTOS: Vinos
+			productos.Add(CrearProducto("Ruttini reserva Malbec 750cc", 11500, PRODUCTO_AGRUPADOR_RESERVA_MALBEC));
+			productos.Add(CrearProducto("Ruttini gran reserva Malbec 750cc", 14500, PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC));
+
+			productos.Add(CrearProducto("Bodega La Caroyense Malbec 375cc", 3500, PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
+			productos.Add(CrearProducto("Bodega La Caroyense Malbec 750cc", 6500, PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
+
+			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 375cc", 3500, PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
+			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 750cc", 6500, PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
+
+			// PRODUCTOS: Gaseosas
 			productos.Add(CrearProducto("Coca Cola 1.5 L descartable", 1800, PRODUCTO_AGRUPADOR_COCA_COLA));
 			productos.Add(CrearProducto("Coca Cola 2 L descartable", 2400, PRODUCTO_AGRUPADOR_COCA_COLA));
 			productos.Add(CrearProducto("Coca Cola 1.25 L retornable", 1300, PRODUCTO_AGRUPADOR_COCA_COLA));
 			productos.Add(CrearProducto("Coca Cola 2 L retornable", 1900, PRODUCTO_AGRUPADOR_COCA_COLA));
+
+			productos.Add(CrearProducto("Sprite 1.5 L descartable", 1800, PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 2 L descartable", 2400, PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 1.25 L retornable", 1300, PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 2 L retornable", 1900, PRODUCTO_AGRUPADOR_SPRITE));
+
+			productos.Add(CrearProducto("Pepsi 1.5 L descartable", 1800, PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 2 L descartable", 2400, PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 1.25 L retornable", 1300, PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 2 L retornable", 1900, PRODUCTO_PEPSI));
+
+			productos.Add(CrearProducto("Seven up 1.5 L descartable", 1800, PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 2 L descartable", 2400, PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 1.25 L retornable", 1300, PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 2 L retornable", 1900, PRODUCTO_SEVEN_UP));
+
+			var categoriaVinos = categorias.First(c => c.Nombre == CATEGORIA_VINOS);
+
+			var promo1 = CrearPromocionPrecioSimple("10 % descuento en vinos", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Categoria,
+				null, null, categoriaVinos, null, TipoDePromocion.Porcentaje, 10);
+				
+			promocionesSimples.Add(promo1);
+
+			var fabricanteCocaCola = fabricantes.First(f => f.Nombre == FABRICANTE_COCA_COLA);
+			var categoriaGaseosa = categorias.First(c => c.Nombre == CATEGORIA_GASEOSA);
+
+			var promo2 = CrearPromocionPrecioSimple("20 % descuento en gaseosas de Coca Cola", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.CategoriaYFabricante,
+				null, null, categoriaGaseosa, fabricanteCocaCola, TipoDePromocion.Porcentaje, 20);
+
+			promocionesSimples.Add(promo2);
+
+
+			var vinoEspecifico = productos.First(p => p.Nombre == "Bodega La Caroyense Cabernet 750cc");
+
+			var promo3 = CrearPromocionPrecioSimple("Bodega La Caroyense Cabernet 750cc - Precio especial $5000", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Producto,
+				vinoEspecifico, null, null, null, TipoDePromocion.Precio, 5000);
+
+			promocionesSimples.Add(promo3);
 		}
+
 
 
 
@@ -142,6 +194,27 @@ namespace PuntoDeVenta.Entities
 			return nuevo;
 		}
 
+		public PromocionPrecioSimple CrearPromocionPrecioSimple(string nombrePromo, DateTime fechaDesde, DateTime fechaHasta, ObjetivoDePromocion objetivoDePromocion,
+			Producto producto, ProductoAgrupador productoAgrupador, Categoria categoria, Fabricante fabricante,	TipoDePromocion tipoDePromocion, int valorDeDescuento)
+		{
+			promocionSimpleId = promocionSimpleId + 1;
+
+			var promocion = new PromocionPrecioSimple() {
+				Id = promocionSimpleId,
+				Nombre = nombrePromo,
+				FechaDesde = fechaDesde,
+				FechaHasta = fechaHasta,
+				ObjetivoDePromocion = objetivoDePromocion,
+				Producto = producto,
+				ProductoAgrupador = productoAgrupador,
+				Categoria = categoria,
+				Fabricante = fabricante,
+				TipoDePromocion = tipoDePromocion,
+				ValorDeDescuento = valorDeDescuento
+			};
+			
+			return promocion;
+		}
 
 		public List<Fabricante> ObtenerTodosLosFabricantes()
 		{
@@ -161,6 +234,11 @@ namespace PuntoDeVenta.Entities
 		public List<Producto> ObtenerTodosLosProductos()
 		{
 			return productos;
+		}
+
+		public List<PromocionPrecioSimple> ObtenerPromocionesPrecioSimple()
+		{
+			return promocionesSimples;
 		}
 	}
 }
