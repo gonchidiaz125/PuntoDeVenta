@@ -1,11 +1,14 @@
 ﻿using PuntoDeVenta.Entities;
+using PuntoDeVenta.Logic;
 
 var repositorios = new Repositorios();
+var facturaLogic = new FacturaLogic(repositorios);
 
 // ImprimirDatos();
 ImprimirPromociones();
 
 CrearOrdenDeCompra();
+
 
 
 void CrearOrdenDeCompra()
@@ -36,7 +39,7 @@ void CrearOrdenDeCompra()
 
     ImprimirOrdenDeCompra(orden);
 
-	GenerarFactura(orden);
+	facturaLogic.GenerarFactura(orden);
 }
 
 void ImprimirOrdenDeCompra(OrdenDeCompra orden)
@@ -68,35 +71,6 @@ void ImprimirPromociones()
 	}
 }
 
-void GenerarFactura(OrdenDeCompra orden)
-{
-	var factura = new Factura();
-
-	AplicarPromociones(orden, factura);
-
-	ImprimirFactura(factura);
-}
-
-void AplicarPromociones(OrdenDeCompra orden, Factura factura)
-{
-	var promocionesSimples = repositorios.ObtenerPromocionesPrecioSimple();
-
-	foreach (var promo in promocionesSimples)
-	{
-		promo.AplicarPromocion(factura, orden);
-	}
-}
-
-void ImprimirFactura(Factura factura)
-{
-	Console.WriteLine("Descuentos");
-	Console.WriteLine("----------");
-
-	foreach (var dto in factura.Descuentos)
-	{
-		Console.WriteLine($"Descuento en {dto.Producto.Nombre} - Cantidad: {dto.Cantidad} * ${dto.DescuentoUnitario} - Total: {dto.Cantidad * dto.DescuentoUnitario}  - Promo aplicada: { dto.Promocion.Nombre }");
-	}
-}
 
 void ImprimirDatos()
 {	
