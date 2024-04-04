@@ -1,4 +1,5 @@
 ﻿using PuntoDeVenta.Entities;
+using PuntoDeVenta.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PuntoDeVenta.Logic
 {
-	public class FacturaLogic
+    public class FacturaLogic
 	{
 		Repositorios repositorios;
 

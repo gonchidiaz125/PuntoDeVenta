@@ -1,5 +1,7 @@
 ﻿using PuntoDeVenta.Entities;
 using PuntoDeVenta.Logic;
+using PuntoDeVenta.Repository;
+
 
 var repositorios = new Repositorios();
 var facturaLogic = new FacturaLogic(repositorios);
