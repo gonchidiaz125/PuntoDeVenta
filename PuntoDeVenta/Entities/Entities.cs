@@ -153,7 +153,7 @@ namespace PuntoDeVenta.Entities
 		public ObjetivoDePromocion ObjetivoDePromocion { get; set; }
 	}
 
-	public class PromocionBase : ClaseBase, IPromocion
+	public abstract class PromocionBase : ClaseBase, IPromocion
 	{
 		public DateTime FechaDesde { get; set; }
 		public DateTime FechaHasta { get; set; }
