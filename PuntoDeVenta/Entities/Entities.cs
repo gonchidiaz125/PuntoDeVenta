@@ -76,7 +76,7 @@ namespace PuntoDeVenta.Entities
         public int Numero { get; set; }
 		public DateTime Fecha { get; set; }
 
-		public List <FacturaDetalle> Items { get; set; }
+		public List<FacturaDetalle> Items { get; set; }
 		public List<FacturaDescuento> Descuentos { get; set; }
 
 		public Factura()
@@ -128,7 +128,7 @@ namespace PuntoDeVenta.Entities
 		}
 	}
 
-	public enum TipoDePromocion
+	public enum TipoDeDescuento
 	{
 		Porcentaje,
 		Precio
@@ -196,18 +196,18 @@ namespace PuntoDeVenta.Entities
 
 	public class PromocionPrecioSimple : PromocionBase, IPromocion
 	{        			
-		public TipoDePromocion TipoDePromocion { get; set; }
+		public TipoDeDescuento TipoDeDescuento { get; set; }
 
 		public int ValorDeDescuento { get; set; }
 
 		public string ObtenerDescripcionDelDescuento()
 		{
-			switch (TipoDePromocion)
+			switch (TipoDeDescuento)
 			{
-				case TipoDePromocion.Precio:
+				case TipoDeDescuento.Precio:
 					return $"Valor final ${ValorDeDescuento}";
 
-				case TipoDePromocion.Porcentaje:
+				case TipoDeDescuento.Porcentaje:
 					return $"{ValorDeDescuento}% de descuento";
 			
 				default:
@@ -215,6 +215,12 @@ namespace PuntoDeVenta.Entities
 			}			
 		}
 
+		/// <summary>
+		/// Dada una orden de compra, analiza los items, y si corresponde genera un descuento y lo agrega la factura
+		/// </summary>
+		/// <param name="factura"></param>
+		/// <param name="orden"></param>
+		/// <exception cref="NotImplementedException"></exception>
 		public void AplicarPromocion(Factura factura, OrdenDeCompra orden)
 		{
 			switch (ObjetivoDePromocion)
@@ -227,12 +233,12 @@ namespace PuntoDeVenta.Entities
 							// Hacer un descuento
 							var descuento = new FacturaDescuento(item.Producto, item.Cantidad, factura);
 
-							switch (TipoDePromocion)
+							switch (TipoDeDescuento)
 							{
-								case TipoDePromocion.Porcentaje:
+								case TipoDeDescuento.Porcentaje:
 									descuento.DescuentoUnitario = item.Producto.PrecioVenta * ValorDeDescuento / 100;
 									break;
-								case TipoDePromocion.Precio:
+								case TipoDeDescuento.Precio:
 									descuento.DescuentoUnitario = item.Producto.PrecioVenta - ValorDeDescuento;
 									break;
 								default:
@@ -260,7 +266,8 @@ namespace PuntoDeVenta.Entities
 					}
 					break;
 
-
+				default:
+					throw new NotImplementedException($"Falta definir como se aplica una promo del tipo {ObjetivoDePromocion}");
 			}
 		}
 
@@ -269,7 +276,7 @@ namespace PuntoDeVenta.Entities
 
 	public class PromocionPreciosPorCantidad : PromocionBase, IPromocion
 	{		
-		public TipoDePromocion TipoDePromocion { get; set; }
+		public TipoDeDescuento TipoDePromocion { get; set; }
 
 		public int ValorDeDescuento { get; set; }
 		

@@ -113,10 +113,12 @@ namespace PuntoDeVenta.Entities
 			productos.Add(CrearProducto("Seven up 1.25 L retornable", 1300, PRODUCTO_SEVEN_UP));
 			productos.Add(CrearProducto("Seven up 2 L retornable", 1900, PRODUCTO_SEVEN_UP));
 
+
+			// PROMOCIONES SIMPLES
 			var categoriaVinos = categorias.First(c => c.Nombre == CATEGORIA_VINOS);
 
 			var promo1 = CrearPromocionPrecioSimple("10 % descuento en vinos", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Categoria,
-				null, null, categoriaVinos, null, TipoDePromocion.Porcentaje, 10);
+				null, null, categoriaVinos, null, TipoDeDescuento.Porcentaje, 10);
 				
 			promocionesSimples.Add(promo1);
 
@@ -124,7 +126,7 @@ namespace PuntoDeVenta.Entities
 			var categoriaGaseosa = categorias.First(c => c.Nombre == CATEGORIA_GASEOSA);
 
 			var promo2 = CrearPromocionPrecioSimple("20 % descuento en gaseosas de Coca Cola", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.CategoriaYFabricante,
-				null, null, categoriaGaseosa, fabricanteCocaCola, TipoDePromocion.Porcentaje, 20);
+				null, null, categoriaGaseosa, fabricanteCocaCola, TipoDeDescuento.Porcentaje, 20);
 
 			promocionesSimples.Add(promo2);
 
@@ -132,7 +134,7 @@ namespace PuntoDeVenta.Entities
 			var vinoEspecifico = productos.First(p => p.Nombre == "Bodega La Caroyense Cabernet 750cc");
 
 			var promo3 = CrearPromocionPrecioSimple("Bodega La Caroyense Cabernet 750cc - Precio especial $5000", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Producto,
-				vinoEspecifico, null, null, null, TipoDePromocion.Precio, 5000);
+				vinoEspecifico, null, null, null, TipoDeDescuento.Precio, 5000);
 
 			promocionesSimples.Add(promo3);
 		}
@@ -195,7 +197,7 @@ namespace PuntoDeVenta.Entities
 		}
 
 		public PromocionPrecioSimple CrearPromocionPrecioSimple(string nombrePromo, DateTime fechaDesde, DateTime fechaHasta, ObjetivoDePromocion objetivoDePromocion,
-			Producto producto, ProductoAgrupador productoAgrupador, Categoria categoria, Fabricante fabricante,	TipoDePromocion tipoDePromocion, int valorDeDescuento)
+			Producto producto, ProductoAgrupador productoAgrupador, Categoria categoria, Fabricante fabricante,	TipoDeDescuento tipoDeDescuento, int valorDeDescuento)
 		{
 			promocionSimpleId = promocionSimpleId + 1;
 
@@ -209,7 +211,7 @@ namespace PuntoDeVenta.Entities
 				ProductoAgrupador = productoAgrupador,
 				Categoria = categoria,
 				Fabricante = fabricante,
-				TipoDePromocion = tipoDePromocion,
+				TipoDeDescuento = tipoDeDescuento,
 				ValorDeDescuento = valorDeDescuento
 			};
 			

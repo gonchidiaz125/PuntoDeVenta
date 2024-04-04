@@ -55,7 +55,7 @@ void ImprimirPromociones()
 		Console.WriteLine($"ID: {promo.Id}  Nombre: {promo.Nombre}");
 		Console.WriteLine($"Desde: {promo.FechaDesde} Hasta: {promo.FechaHasta}");
 		Console.WriteLine($"Tipo: {promo.ObjetivoDePromocion.ToString()}   Objetivo: {promo.ObtenerObjetivoDePromocion()}");
-		Console.WriteLine($"TipoDePromocion: {promo.TipoDePromocion.ToString()} - {promo.ObtenerDescripcionDelDescuento()}");
+		Console.WriteLine($"TipoDePromocion: {promo.TipoDeDescuento.ToString()} - {promo.ObtenerDescripcionDelDescuento()}");
 		Console.WriteLine("");
 	}
 }
