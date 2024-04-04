@@ -21,6 +21,10 @@ namespace PuntoDeVenta.Entities
 		private int promocionSimpleId = 0;
 		private List<PromocionPrecioSimple> promocionesSimples = new List<PromocionPrecioSimple>();
 
+		private int promocionPreciosPorConjuntosId = 0;
+		private List<PromocionPreciosPorConjuntos> promocionesDeConjuntos = new List<PromocionPreciosPorConjuntos>();
+		
+
 
 		public Repositorios() {
 			InicializarDatos();
@@ -137,6 +141,11 @@ namespace PuntoDeVenta.Entities
 				vinoEspecifico, null, null, null, TipoDeDescuento.Precio, 5000);
 
 			promocionesSimples.Add(promo3);
+
+			// PROMOCIONES DE CONJUNTOS
+			var seven2Lretornable = productos.First(p => p.Nombre == "Seven up 2 L retornable");
+			var promoConjunto1 = CrearPromocionPrecioPorConjunto("2 x 1 en Seven 2L retornable", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), seven2Lretornable, 2, 1);
+			promocionesDeConjuntos.Add(promoConjunto1);
 		}
 
 
@@ -217,6 +226,27 @@ namespace PuntoDeVenta.Entities
 			
 			return promocion;
 		}
+		
+		public PromocionPreciosPorConjuntos CrearPromocionPrecioPorConjunto(string nombrePromo, DateTime fechaDesde, DateTime fechaHasta, 
+			Producto producto, int cantidadConjunto, int cantidadDescontada)
+		{
+			promocionPreciosPorConjuntosId = promocionPreciosPorConjuntosId + 1;
+
+			var promocion = new PromocionPreciosPorConjuntos()
+			{
+				Id = promocionPreciosPorConjuntosId,
+				Nombre = nombrePromo,
+				FechaDesde = fechaDesde,
+				FechaHasta = fechaHasta,
+				ObjetivoDePromocion = ObjetivoDePromocion.Producto,
+				Producto = producto,				
+				CantidadConjunto = cantidadConjunto,
+				CantidadDescontada = cantidadDescontada
+			};
+
+			return promocion;
+		}
+
 
 		public List<Fabricante> ObtenerTodosLosFabricantes()
 		{
@@ -241,6 +271,11 @@ namespace PuntoDeVenta.Entities
 		public List<PromocionPrecioSimple> ObtenerPromocionesPrecioSimple()
 		{
 			return promocionesSimples;
+		}
+
+		public List<PromocionPreciosPorConjuntos> ObtenerPromocionesDeConjuntos()
+		{
+			return promocionesDeConjuntos;
 		}
 	}
 }

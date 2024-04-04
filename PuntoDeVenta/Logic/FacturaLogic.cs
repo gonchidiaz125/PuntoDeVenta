@@ -28,7 +28,8 @@ namespace PuntoDeVenta.Logic
 		public void AplicarPromociones(OrdenDeCompra orden, Factura factura)
 		{			
 			var promocionesLogic = new PromocionesLogic(repositorios);
-			promocionesLogic.AplicarPromociones(orden, factura);
+			promocionesLogic.AplicarPromocionesPrecioSimple(orden, factura);
+			promocionesLogic.AplicarPromocionesDeConjuntos(orden, factura);
 		}
 
 		public void ImprimirFactura(Factura factura)

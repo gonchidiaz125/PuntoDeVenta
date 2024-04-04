@@ -17,13 +17,13 @@ namespace PuntoDeVenta.Logic
 			this.repositorios = repositorios;
 		}
 
-		public void AplicarPromociones(OrdenDeCompra orden, Factura factura)
+		public void AplicarPromocionesPrecioSimple(OrdenDeCompra orden, Factura factura)
 		{
 			var promocionesSimples = repositorios.ObtenerPromocionesPrecioSimple();
 
 			foreach (var promo in promocionesSimples)
 			{
-				AplicarPromocion(promo, factura, orden);
+				AplicarPromocionPrecionSimple(promo, factura, orden);
 			}
 		}
 
@@ -33,7 +33,7 @@ namespace PuntoDeVenta.Logic
 		/// <param name="factura"></param>
 		/// <param name="orden"></param>
 		/// <exception cref="NotImplementedException"></exception>
-		public void AplicarPromocion(PromocionPrecioSimple promo, Factura factura, OrdenDeCompra orden)
+		public void AplicarPromocionPrecionSimple(PromocionPrecioSimple promo, Factura factura, OrdenDeCompra orden)
 		{
 			switch (promo.ObjetivoDePromocion)
 			{
@@ -91,6 +91,62 @@ namespace PuntoDeVenta.Logic
 			descuento.Promocion = promo;
 			factura.Descuentos.Add(descuento);
 			return descuento;			
+		}
+
+
+		public void AplicarPromocionesDeConjuntos(OrdenDeCompra orden, Factura factura)
+		{
+			var promociones = repositorios.ObtenerPromocionesDeConjuntos();
+
+			foreach (var promo in promociones)
+			{
+				AplicarPromocionDeConjutos(promo, factura, orden);
+			}
+		}
+
+		public void AplicarPromocionDeConjutos(PromocionPreciosPorConjuntos promo, Factura factura, OrdenDeCompra orden)
+		{
+			switch (promo.ObjetivoDePromocion)
+			{
+				case ObjetivoDePromocion.Producto:
+					foreach (var item in orden.Items)
+					{
+						if (item.Producto.Id == promo.Producto.Id)
+						{
+							CrearDescuentoPromocionDeConjuntos(promo, item, factura);
+						}
+					}
+					break;
+				default:
+					throw new NotImplementedException($"Falta definir como se aplica una promo del tipo {promo.ObjetivoDePromocion}");
+			}
+		}
+
+		public FacturaDescuento CrearDescuentoPromocionDeConjuntos(PromocionPreciosPorConjuntos promo, OrdenDeCompraDetalle itemDeOrdenDeCompra, Factura factura)
+		{
+			// Ver si corresponde
+			// No corresponde - retorno
+			// Si corresponde: ver cuantos corresponden
+
+			if (itemDeOrdenDeCompra.Cantidad < promo.CantidadConjunto)
+			{
+				return null;
+			}
+
+			// Corresponde: ver cuantos
+			int cantidad = itemDeOrdenDeCompra.Cantidad / promo.CantidadConjunto;
+
+			if (cantidad == 0)
+			{
+				return null;
+			}
+
+			var descuento = new FacturaDescuento(itemDeOrdenDeCompra.Producto, cantidad, factura);
+			descuento.DescuentoUnitario = itemDeOrdenDeCompra.Producto.PrecioVenta;
+
+			descuento.Promocion = promo;
+			factura.Descuentos.Add(descuento);
+			return descuento;
 		}
 
 	}

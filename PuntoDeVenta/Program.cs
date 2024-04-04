@@ -37,7 +37,11 @@ void CrearOrdenDeCompra()
     item = new OrdenDeCompraDetalle(producto, 2, orden);
     orden.Items.Add(item);
 
-    ImprimirOrdenDeCompra(orden);
+	producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == "Seven up 2 L retornable");
+	item = new OrdenDeCompraDetalle(producto, 5, orden);
+	orden.Items.Add(item);
+
+	ImprimirOrdenDeCompra(orden);
 
 	facturaLogic.GenerarFactura(orden);
 }
