@@ -257,15 +257,56 @@ namespace PuntoDeVenta.Entities
 					{
 						if (item.Producto.ProductoAgrupador.Categoria.Id == Categoria.Id)
 						{
-							// Hacer un descuento
-							var descuento = new FacturaDescuento(item.Producto, item.Cantidad, factura);
-							descuento.DescuentoUnitario = item.Producto.PrecioVenta * ValorDeDescuento / 100;
-							descuento.Promocion = this;
-							factura.Descuentos.Add(descuento);
-						}
+                            // Hacer un descuento
+                            var descuento = new FacturaDescuento(item.Producto, item.Cantidad, factura);
+
+                            switch (TipoDeDescuento)
+                            {
+                                case TipoDeDescuento.Porcentaje:
+                                    descuento.DescuentoUnitario = item.Producto.PrecioVenta * ValorDeDescuento / 100;
+                                    break;
+                                case TipoDeDescuento.Precio:
+                                    descuento.DescuentoUnitario = item.Producto.PrecioVenta - ValorDeDescuento;
+                                    break;
+                                default:
+                                    throw new NotImplementedException();
+
+                            }
+
+                            descuento.Promocion = this;
+                            factura.Descuentos.Add(descuento);
+                        }
 					}
 					break;
 
+				case ObjetivoDePromocion.CategoriaYFabricante:
+					foreach (var item in orden.Items)
+					{
+						if (item.Producto.ProductoAgrupador.Categoria.Id == Categoria.Id && item.Producto.ProductoAgrupador.Fabricante.Id == Fabricante.Id)
+                        {
+                            // Hacer un descuento
+                            var descuento = new FacturaDescuento(item.Producto, item.Cantidad, factura);
+
+                            switch (TipoDeDescuento)
+                            {
+                                case TipoDeDescuento.Porcentaje:
+                                    descuento.DescuentoUnitario = item.Producto.PrecioVenta * ValorDeDescuento / 100;
+                                    break;
+                                case TipoDeDescuento.Precio:
+                                    descuento.DescuentoUnitario = item.Producto.PrecioVenta - ValorDeDescuento;
+                                    break;
+                                default:
+                                    throw new NotImplementedException();
+
+                            }
+
+                            descuento.Promocion = this;
+                            factura.Descuentos.Add(descuento);
+
+                        }
+
+                    }
+					break;
 				default:
 					throw new NotImplementedException($"Falta definir como se aplica una promo del tipo {ObjetivoDePromocion}");
 			}

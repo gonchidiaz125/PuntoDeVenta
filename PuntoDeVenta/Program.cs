@@ -26,7 +26,15 @@ void CrearOrdenDeCompra()
 	item = new OrdenDeCompraDetalle(producto, 3, orden);
 	orden.Items.Add(item);
 
-	ImprimirOrdenDeCompra(orden);
+	producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == "Coca Cola 2 L descartable");
+    item = new OrdenDeCompraDetalle(producto, 4, orden);
+    orden.Items.Add(item);
+
+    producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == "Pepsi 2 L descartable");
+    item = new OrdenDeCompraDetalle(producto, 2, orden);
+    orden.Items.Add(item);
+
+    ImprimirOrdenDeCompra(orden);
 
 	GenerarFactura(orden);
 }
