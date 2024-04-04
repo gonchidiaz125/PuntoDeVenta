@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PuntoDeVenta.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,100 +35,81 @@ namespace PuntoDeVenta.Entities
 		{		
 			// Utilizo constantes porque para evitar repetir el mismo nombre multiples veces y facilitar el mantenimiento
 			// FABRICANTES
-			const string FABRICANTE_BODEGA_RUTINI = "Bodega Rutini";
-			const string FABRICANTE_COCA_COLA = "Coca Cola Company";
-			const string FABRICANTE_PEPSICO = "Pepsico";
-			const string FABRICANTE_LA_CAROYENSE = "La Caroyense";
-			const string FABRICANTE_ARCOR = "Arcor";
-			const string FABRICANTE_MOLINOS_RIO_DE_LA_PLATA = "Molinos Rio de la Plata";
-			const string FABRICANTE_AGD = "Aceitera General Deheza";
-
-			fabricantes.Add(CrearFabricante(FABRICANTE_BODEGA_RUTINI));
-			fabricantes.Add(CrearFabricante(FABRICANTE_LA_CAROYENSE));
-			fabricantes.Add(CrearFabricante(FABRICANTE_ARCOR));
-			fabricantes.Add(CrearFabricante(FABRICANTE_MOLINOS_RIO_DE_LA_PLATA));
-			fabricantes.Add(CrearFabricante(FABRICANTE_COCA_COLA));
-			fabricantes.Add(CrearFabricante(FABRICANTE_PEPSICO));
-			fabricantes.Add(CrearFabricante(FABRICANTE_AGD));
-
 			
-			// CATEGORIAS
-			const string CATEGORIA_VINOS = "Vinos";
-			const string CATEGORIA_GASEOSA = "Gaseosas";
-			const string CATEGORIA_FIDEOS = "Fideos";
-			const string CATEGORIA_ACEITES = "Aceites";
 
-			categorias.Add(CrearCategoria(CATEGORIA_VINOS));
-			categorias.Add(CrearCategoria(CATEGORIA_GASEOSA));
-			categorias.Add(CrearCategoria(CATEGORIA_FIDEOS));
-			categorias.Add(CrearCategoria(CATEGORIA_ACEITES));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_BODEGA_RUTINI));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_LA_CAROYENSE));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_ARCOR));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_MOLINOS_RIO_DE_LA_PLATA));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_COCA_COLA));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_PEPSICO));
+			fabricantes.Add(CrearFabricante(Constants.FABRICANTE_AGD));
+
+			//CATEGORIAS
+			categorias.Add(CrearCategoria(Constants.CATEGORIA_VINOS));   
+			categorias.Add(CrearCategoria(Constants.CATEGORIA_GASEOSA));
+			categorias.Add(CrearCategoria(Constants.CATEGORIA_FIDEOS));
+			categorias.Add(CrearCategoria(Constants.CATEGORIA_ACEITES));
 
 
 			// PRODUCTOS AGRUPADOS: Vinos
-			const string PRODUCTO_AGRUPADOR_RESERVA_MALBEC = "Ruttini reserva Malbec";
-			const string PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC = "Ruttini gran reserva Malbec";
-			const string PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC = "Bodega La Caroyense Malbec";
-			const string PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET = "Bodega La Caroyense Cabernet";
-
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_RESERVA_MALBEC, FABRICANTE_BODEGA_RUTINI, CATEGORIA_VINOS));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC, FABRICANTE_BODEGA_RUTINI, CATEGORIA_VINOS));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC, FABRICANTE_LA_CAROYENSE, CATEGORIA_VINOS));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET, FABRICANTE_LA_CAROYENSE, CATEGORIA_VINOS));
+			
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_RESERVA_MALBEC, Constants.FABRICANTE_BODEGA_RUTINI, Constants.CATEGORIA_VINOS));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC, Constants.FABRICANTE_BODEGA_RUTINI, Constants.CATEGORIA_VINOS));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC, Constants.FABRICANTE_LA_CAROYENSE, Constants.CATEGORIA_VINOS));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET, Constants.FABRICANTE_LA_CAROYENSE, Constants.CATEGORIA_VINOS));
 
 			// PRODUCTOS AGRUPADOS: Gaseosas			
-			const string PRODUCTO_AGRUPADOR_COCA_COLA = "Coca Cola";
-			const string PRODUCTO_AGRUPADOR_SPRITE = "Sprite";
-			const string PRODUCTO_PEPSI = "Pepsi";
-			const string PRODUCTO_SEVEN_UP = "Seven up";
+			
 
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_COCA_COLA, FABRICANTE_COCA_COLA, CATEGORIA_GASEOSA));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_AGRUPADOR_SPRITE, FABRICANTE_COCA_COLA, CATEGORIA_GASEOSA));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_PEPSI, FABRICANTE_PEPSICO, CATEGORIA_GASEOSA));
-			productosAgrupadores.Add(CrearProductoAgrupador(PRODUCTO_SEVEN_UP, FABRICANTE_PEPSICO, CATEGORIA_GASEOSA));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_COCA_COLA, Constants.FABRICANTE_COCA_COLA, Constants.CATEGORIA_GASEOSA));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_AGRUPADOR_SPRITE, Constants.FABRICANTE_COCA_COLA, Constants.CATEGORIA_GASEOSA));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_PEPSI, Constants.FABRICANTE_PEPSICO, Constants.CATEGORIA_GASEOSA));
+			productosAgrupadores.Add(CrearProductoAgrupador(Constants.PRODUCTO_SEVEN_UP, Constants.FABRICANTE_PEPSICO, Constants.CATEGORIA_GASEOSA));
 
-
+			
 			// PRODUCTOS: Vinos
-			productos.Add(CrearProducto("Ruttini reserva Malbec 750cc", 11500, PRODUCTO_AGRUPADOR_RESERVA_MALBEC));
-			productos.Add(CrearProducto("Ruttini gran reserva Malbec 750cc", 14500, PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC));
+			productos.Add(CrearProducto("Ruttini reserva Malbec 750cc", 11500, Constants.PRODUCTO_AGRUPADOR_RESERVA_MALBEC));
+			productos.Add(CrearProducto("Ruttini gran reserva Malbec 750cc", 14500, Constants.PRODUCTO_AGRUPADOR_GRAN_RESERVA_MALBEC));
 
-			productos.Add(CrearProducto("Bodega La Caroyense Malbec 375cc", 3500, PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
-			productos.Add(CrearProducto("Bodega La Caroyense Malbec 750cc", 6500, PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
+			productos.Add(CrearProducto("Bodega La Caroyense Malbec 375cc", 3500, Constants.PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
+			productos.Add(CrearProducto("Bodega La Caroyense Malbec 750cc", 6500, Constants.PRODUCTO_AGRUPADOR_CAROYENSE_MALBEC));
 
-			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 375cc", 3500, PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
-			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 750cc", 6500, PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
+			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 375cc", 3500, Constants.PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
+			productos.Add(CrearProducto("Bodega La Caroyense Cabernet 750cc", 6500, Constants.PRODUCTO_AGRUPADOR_CAROYENSE_CABERNET));
 
 			// PRODUCTOS: Gaseosas
-			productos.Add(CrearProducto("Coca Cola 1.5 L descartable", 1800, PRODUCTO_AGRUPADOR_COCA_COLA));
-			productos.Add(CrearProducto("Coca Cola 2 L descartable", 2400, PRODUCTO_AGRUPADOR_COCA_COLA));
-			productos.Add(CrearProducto("Coca Cola 1.25 L retornable", 1300, PRODUCTO_AGRUPADOR_COCA_COLA));
-			productos.Add(CrearProducto("Coca Cola 2 L retornable", 1900, PRODUCTO_AGRUPADOR_COCA_COLA));
+			productos.Add(CrearProducto("Coca Cola 1.5 L descartable", 1800, Constants.PRODUCTO_AGRUPADOR_COCA_COLA));
+			productos.Add(CrearProducto("Coca Cola 2 L descartable", 2400, Constants.PRODUCTO_AGRUPADOR_COCA_COLA));
+			productos.Add(CrearProducto("Coca Cola 1.25 L retornable", 1300, Constants.PRODUCTO_AGRUPADOR_COCA_COLA));
+			productos.Add(CrearProducto("Coca Cola 2 L retornable", 1900, Constants.PRODUCTO_AGRUPADOR_COCA_COLA));
 
-			productos.Add(CrearProducto("Sprite 1.5 L descartable", 1800, PRODUCTO_AGRUPADOR_SPRITE));
-			productos.Add(CrearProducto("Sprite 2 L descartable", 2400, PRODUCTO_AGRUPADOR_SPRITE));
-			productos.Add(CrearProducto("Sprite 1.25 L retornable", 1300, PRODUCTO_AGRUPADOR_SPRITE));
-			productos.Add(CrearProducto("Sprite 2 L retornable", 1900, PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 1.5 L descartable", 1800, Constants.PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 2 L descartable", 2400, Constants.PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 1.25 L retornable", 1300, Constants.PRODUCTO_AGRUPADOR_SPRITE));
+			productos.Add(CrearProducto("Sprite 2 L retornable", 1900, Constants.PRODUCTO_AGRUPADOR_SPRITE));
 
-			productos.Add(CrearProducto("Pepsi 1.5 L descartable", 1800, PRODUCTO_PEPSI));
-			productos.Add(CrearProducto("Pepsi 2 L descartable", 2400, PRODUCTO_PEPSI));
-			productos.Add(CrearProducto("Pepsi 1.25 L retornable", 1300, PRODUCTO_PEPSI));
-			productos.Add(CrearProducto("Pepsi 2 L retornable", 1900, PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 1.5 L descartable", 1800, Constants.PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 2 L descartable", 2400, Constants.PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 1.25 L retornable", 1300, Constants.PRODUCTO_PEPSI));
+			productos.Add(CrearProducto("Pepsi 2 L retornable", 1900, Constants.PRODUCTO_PEPSI));
 
-			productos.Add(CrearProducto("Seven up 1.5 L descartable", 1800, PRODUCTO_SEVEN_UP));
-			productos.Add(CrearProducto("Seven up 2 L descartable", 2400, PRODUCTO_SEVEN_UP));
-			productos.Add(CrearProducto("Seven up 1.25 L retornable", 1300, PRODUCTO_SEVEN_UP));
-			productos.Add(CrearProducto("Seven up 2 L retornable", 1900, PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 1.5 L descartable", 1800, Constants.PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 2 L descartable", 2400, Constants.PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 1.25 L retornable", 1300, Constants.PRODUCTO_SEVEN_UP));
+			productos.Add(CrearProducto("Seven up 2 L retornable", 1900, Constants.PRODUCTO_SEVEN_UP));
 
 
 			// PROMOCIONES SIMPLES
-			var categoriaVinos = categorias.First(c => c.Nombre == CATEGORIA_VINOS);
+			var categoriaVinos = categorias.First(c => c.Nombre == Constants.CATEGORIA_VINOS);
 
 			var promo1 = CrearPromocionPrecioSimple("10 % descuento en vinos", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Categoria,
 				null, null, categoriaVinos, null, TipoDeDescuento.Porcentaje, 10);
 				
 			promocionesSimples.Add(promo1);
 
-			var fabricanteCocaCola = fabricantes.First(f => f.Nombre == FABRICANTE_COCA_COLA);
-			var categoriaGaseosa = categorias.First(c => c.Nombre == CATEGORIA_GASEOSA);
+			var fabricanteCocaCola = fabricantes.First(f => f.Nombre == Constants.FABRICANTE_COCA_COLA);
+			var categoriaGaseosa = categorias.First(c => c.Nombre == Constants.CATEGORIA_GASEOSA);
 
 			var promo2 = CrearPromocionPrecioSimple("20 % descuento en gaseosas de Coca Cola", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.CategoriaYFabricante,
 				null, null, categoriaGaseosa, fabricanteCocaCola, TipoDeDescuento.Porcentaje, 20);
