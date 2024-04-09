@@ -67,8 +67,30 @@ namespace PuntoDeVenta.Logic
 						}
 					}
 					break;
-				default:
+
+				case ObjetivoDePromocion.Fabricante:
+					foreach (var item in orden.Items)
+					{
+						if(item.Producto.ProductoAgrupador.Fabricante.Id == promo.Fabricante.Id)
+						{
+							CrearDescuento(promo, item, factura);
+						}
+					}
+					break;
+
+                case ObjetivoDePromocion.ProductoAgrupador:
+                    foreach (var item in orden.Items)
+                    {
+                        if (item.Producto.ProductoAgrupador.Id == promo.ProductoAgrupador.Id)
+                        {
+                            CrearDescuento(promo, item, factura);
+                        }
+                    }
+                    break;
+
+                default:
 					throw new NotImplementedException($"Falta definir como se aplica una promo del tipo {promo.ObjetivoDePromocion}");
+
 			}
 		}
 

@@ -1,6 +1,8 @@
-﻿using PuntoDeVenta.Entities;
+﻿using PuntoDeVenta.Common;
+using PuntoDeVenta.Entities;
 using PuntoDeVenta.Logic;
 using PuntoDeVenta.Repository;
+using System.Reflection.Metadata;
 
 
 var repositorios = new Repositorios();
@@ -43,7 +45,11 @@ void CrearOrdenDeCompra()
 	item = new OrdenDeCompraDetalle(producto, 5, orden);
 	orden.Items.Add(item);
 
-	ImprimirOrdenDeCompra(orden);
+    producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == Constants.PRODUCTO_AGRUPADOR_SPRITE);
+    item = new OrdenDeCompraDetalle(producto, 8, orden);
+    orden.Items.Add(item);
+
+    ImprimirOrdenDeCompra(orden);
 
 	facturaLogic.GenerarFactura(orden);
 }

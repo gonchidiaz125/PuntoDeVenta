@@ -126,10 +126,23 @@ namespace PuntoDeVenta.Repository
 
             promocionesSimples.Add(promo3);
 
+            var fabricanteEspecifico = fabricantes.First(f => f.Nombre == Constants.FABRICANTE_LA_CAROYENSE);
+
+            var promo4 = CrearPromocionPrecioSimple("Descuentos de 15% en todos los vinos de La Caroyense", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.Fabricante,
+                null, null, null, fabricanteEspecifico, TipoDeDescuento.Porcentaje, 15);
+            promocionesSimples.Add(promo4);
+
+            var grupoEspecifico = productosAgrupadores.First(p => p.Nombre == Constants.PRODUCTO_AGRUPADOR_COCA_COLA);
+
+            var promo5 = CrearPromocionPrecioSimple("Descuentos del 5% en gaseosas CocaCola", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), ObjetivoDePromocion.ProductoAgrupador,
+               null, grupoEspecifico, null, null, TipoDeDescuento.Porcentaje, 5);
+            promocionesSimples.Add(promo5);
+
             // PROMOCIONES DE CONJUNTOS
             var seven2Lretornable = productos.First(p => p.Nombre == Constants.PRODUCTO_GASEOSA_SEVEN_UP_2_L_RETORNATABLE);
             var promoConjunto1 = CrearPromocionPrecioPorConjunto("2 x 1 en Seven 2L retornable", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), seven2Lretornable, 2, 1);
             promocionesDeConjuntos.Add(promoConjunto1);
+
         }
 
 
