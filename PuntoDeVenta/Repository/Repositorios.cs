@@ -26,6 +26,11 @@ namespace PuntoDeVenta.Repository
         private int promocionPreciosPorConjuntosId = 0;
         private List<PromocionPreciosPorConjuntos> promocionesDeConjuntos = new List<PromocionPreciosPorConjuntos>();
 
+        private int promocionPreciosPorCantidadId = 0;
+        private List<PromocionPreciosPorCantidad> promocionesPorCantidad = new List<PromocionPreciosPorCantidad>();
+
+
+
 
 
         public Repositorios()
@@ -143,6 +148,10 @@ namespace PuntoDeVenta.Repository
             var promoConjunto1 = CrearPromocionPrecioPorConjunto("2 x 1 en Seven 2L retornable", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), seven2Lretornable, 2, 1);
             promocionesDeConjuntos.Add(promoConjunto1);
 
+            var cocaCola2lRetonable = productos.First(p => p.Nombre == Constants.PRODUCTO_GASEOSA_SEVEN_UP_2_L_RETORNATABLE);
+            var promoCantidad1 = CrearPromocionPrecioPorCantidad("coca", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10), cocaCola2lRetonable, TipoDeDescuento.Porcentaje, 15, 5);
+            promocionesPorCantidad.Add(promoCantidad1);
+
         }
 
 
@@ -245,6 +254,24 @@ namespace PuntoDeVenta.Repository
             return promocion;
         }
 
+        public PromocionPreciosPorCantidad CrearDescuentoPromocionPorCantidad(string nombrePromo,DateTime fechaDesde, DateTime fechaHasta, Producto producto, TipoDeDescuento tipoDePromocion, int valorDeDescuento, int cantidadDesde)
+        {
+            promocionPreciosPorCantidadId = promocionPreciosPorCantidadId + 1;
+
+            var promocion = new PromocionPreciosPorCantidad()
+            {
+                Id = promocionPreciosPorCantidadId,
+                Nombre = nombrePromo,
+                FechaDesde = fechaDesde,
+                FechaHasta = fechaHasta,
+                ObjetivoDePromocion = ObjetivoDePromocion.Producto,
+                Producto = producto,
+                ValorDeDescuento = valorDeDescuento,
+                CantidadDesde = cantidadDesde
+            };
+
+            return promocion;
+        }
 
         public List<Fabricante> ObtenerTodosLosFabricantes()
         {
@@ -274,6 +301,11 @@ namespace PuntoDeVenta.Repository
         public List<PromocionPreciosPorConjuntos> ObtenerPromocionesDeConjuntos()
         {
             return promocionesDeConjuntos;
+        }
+
+        public List<PromocionPreciosPorCantidad> ObtenerPromocionesPorCantidad()
+        {
+            return promocionesPorCantidad;
         }
     }
 }

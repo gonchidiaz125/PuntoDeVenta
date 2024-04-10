@@ -13,7 +13,7 @@ ImprimirPromociones();
 
 CrearOrdenDeCompra();
 
-
+Console.ReadLine();
 
 void CrearOrdenDeCompra()
 {
@@ -45,8 +45,8 @@ void CrearOrdenDeCompra()
 	item = new OrdenDeCompraDetalle(producto, 5, orden);
 	orden.Items.Add(item);
 
-    producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == Constants.PRODUCTO_AGRUPADOR_SPRITE);
-    item = new OrdenDeCompraDetalle(producto, 8, orden);
+    producto = repositorios.ObtenerTodosLosProductos().First(p => p.Nombre == "Coca Cola 2 L descartable");
+    item = new OrdenDeCompraDetalle(producto, 10, orden);
     orden.Items.Add(item);
 
     ImprimirOrdenDeCompra(orden);

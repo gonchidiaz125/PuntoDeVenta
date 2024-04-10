@@ -2,11 +2,11 @@
 {
     public class PromocionPreciosPorCantidad : PromocionBase, IPromocion
 	{		
-		public TipoDeDescuento TipoDePromocion { get; set; }
+		public TipoDeDescuento tipoDePromocion { get; set; }
 
-		public int ValorDeDescuento { get; set; }
+		public int valorDeDescuento { get; set; }
 		
-		public int CantidadDesde { get; set; }
+		public int cantidadDesde { get; set; }
 	}
 
 }

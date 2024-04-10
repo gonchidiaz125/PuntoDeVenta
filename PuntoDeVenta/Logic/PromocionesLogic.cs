@@ -172,5 +172,52 @@ namespace PuntoDeVenta.Logic
 			return descuento;
 		}
 
-	}
+        public void AplicarPromocionesDeCantidad(OrdenDeCompra orden, Factura factura)
+        {
+            var promociones = repositorios.ObtenerPromocionesPorCantidad();
+
+            foreach (var promo in promociones)
+            {
+                AplicarPromocionDeCantidad(promo, factura, orden);
+            }
+        }
+        public void AplicarPromocionDeCantidad(PromocionPreciosPorCantidad promo, Factura factura, OrdenDeCompra orden)
+        {
+            switch (promo.ObjetivoDePromocion)
+            {
+                case ObjetivoDePromocion.Producto:
+                    foreach (var item in orden.Items)
+                    {
+                        if (item.Producto.Id == promo.Producto.Id)
+                        {
+                            CrearDescuentoPromocionPorCantidad(promo, item, factura);
+                        }
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException($"Falta definir como se aplica una promo del tipo {promo.ObjetivoDePromocion}");
+            }
+        }
+        public FacturaDescuento CrearDescuento(PromocionPreciosPorCantidad promo, OrdenDeCompraDetalle itemDeOrdenDeCompra, Factura factura)
+        {
+            var descuento = new FacturaDescuento(itemDeOrdenDeCompra.Producto, itemDeOrdenDeCompra.Cantidad, factura);
+
+            switch (promo.TipoDeDescuento)
+            {
+                case TipoDeDescuento.Porcentaje:
+                    descuento.DescuentoUnitario = itemDeOrdenDeCompra.Producto.PrecioVenta * promo.ValorDeDescuento / 100;
+                    break;
+                case TipoDeDescuento.Precio:
+                    descuento.DescuentoUnitario = itemDeOrdenDeCompra.Producto.PrecioVenta - promo.ValorDeDescuento;
+                    break;
+                default:
+                    throw new NotImplementedException();
+
+            }
+
+            descuento.Promocion = promo;
+            factura.Descuentos.Add(descuento);
+            return descuento;
+        }
+    }
 }
